@@ -10,6 +10,8 @@ package lab2;
 public class NameService {
     private static final int FIRST_NAME_IDX = 0;
     private static final int LAST_NAME_IDX = 1;
+    private int minNameLength = 1;
+    private int maxNameLength = 20;
     
     /**
      * Finds and returns the last name from within a full name. Caution: 
@@ -18,9 +20,26 @@ public class NameService {
      * @param fullName - a name containing a first name and a last name
      * @return the last name
      */
-    public String extractLastName(String fullName) {
+    public String extractLastName(String fullName) throws IllegalArgumentException{
+        
+        
+        if(fullName.length() < minNameLength || fullName.length() > maxNameLength){
+            throw new IllegalArgumentException("Name must be between " + minNameLength + " and " + maxNameLength + " characters long");
+        }
+        if (fullName.matches("[a-zA-Z]*")){
+            throw new IllegalArgumentException("Name must only contain letters");
+        }
         
         String[] nameParts = fullName.split(" ");
+        if (nameParts.length != 2 ){
+            throw new IllegalArgumentException("Please enter yor first and last name only");
+        }
+        
+        String lname = nameParts[LAST_NAME_IDX].trim();
+        if (lname.isEmpty() || lname.length() < 1){
+            throw new IllegalArgumentException("Last name must be atleast 1 character");
+        }
+        
         return nameParts[nameParts.length - 1];
     }
     
@@ -33,6 +52,16 @@ public class NameService {
      */
     public String extractFirstName(String fullName) {
         String[] nameParts = fullName.split(" ");
+        if (nameParts.length > 2){
+            throw new IllegalArgumentException("Please only enter yor first and last name");
+        }
+        String fname = nameParts[FIRST_NAME_IDX].trim();
+        if (fname.isEmpty() || fname.length() < 1){
+            throw new IllegalArgumentException("Last name must be atleast 1 character");
+        }
+        if (!fname.matches("[a-zA-Z]*")){
+            throw new IllegalArgumentException("Name must only contain letters");
+        }
         return nameParts[FIRST_NAME_IDX];
     }
 

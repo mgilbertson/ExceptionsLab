@@ -11,25 +11,22 @@ import javax.swing.JOptionPane;
 public class InputOutputGui {
 
     private NameService nameService;
-    private int minNameLength;
-    private int maxNameLength;
+    
 
     public InputOutputGui() {
         nameService = new NameService();
     }
 
-    public void startConversation() throws IllegalArgumentException{
-
-        String fullName = JOptionPane.showInputDialog("Enter full name:");
-        if (fullName == null || fullName.isEmpty() || fullName.length() < minNameLength || fullName.length() > maxNameLength) {
-            throw new IllegalArgumentException();
+    public void startConversation() throws IllegalArgumentException {
+        try {
+            String fullName = JOptionPane.showInputDialog("Enter full name:");
+            String lastName = "";
+            lastName = nameService.extractLastName(fullName);
+            String msg = "Your last name is: " + lastName;
+            JOptionPane.showMessageDialog(null, msg);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
-        String lastName = "";
-        lastName = nameService.extractLastName(fullName);
-
-        String msg = "Your last name is: " + lastName;
-        JOptionPane.showMessageDialog(null, msg);
-
     }
 
 }
