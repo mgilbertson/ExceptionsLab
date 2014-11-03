@@ -18,9 +18,9 @@ public class InputOutputGui {
 
     public void startConversation() {
         boolean pass = false;
-        String fullName = JOptionPane.showInputDialog("Enter full name:");
-        String lastName = "";
         while (pass == false) {
+            String fullName = JOptionPane.showInputDialog("Enter full name:");
+            String lastName = "";
             try {
                 lastName = nameService.extractLastName(fullName);
                 pass = true;
